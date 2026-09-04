@@ -4,9 +4,7 @@
 
   var scriptEl = document.currentScript;
   var siteRoot = '';
-  if (scriptEl && scriptEl.src) {
-    siteRoot = scriptEl.src.replace(/js\/main\.js(?:\?.*)?$/, '');
-  }
+  if (scriptEl && scriptEl.src) siteRoot = scriptEl.src.replace(/js\/main\.js(?:\?.*)?$/, '');
   if (!siteRoot) siteRoot = /\/(?:pals|news)\//.test(location.pathname) ? '../' : '';
 
   if (!document.querySelector('link[data-palworldzh-experience]')) {
@@ -44,9 +42,7 @@
     nav.addEventListener('click', function (e) {
       if (e.target.closest && e.target.closest('a')) closeNav();
     });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closeNav();
-    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
   }
 
   var toolBar = document.querySelector('.tool-bar');
@@ -68,13 +64,33 @@
       '<a href="' + siteRoot + 'sitemap.xml">站点地图</a>';
   }
 
-  // 从全站搜索落到图鉴时保留关键词，例如 paldex.html?q=阿努比斯。
+  // 修正旧生成页把“299 个站内条目”误写成“299 种官方帕鲁”的口径。
+  if (/\/paldex\.html$/.test(location.pathname)) {
+    document.title = '帕鲁图鉴 - 正式版287种帕鲁与形态/特殊条目 | PalworldZH';
+    var desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', '幻兽帕鲁 1.0 中文图鉴：官方正式版共287种帕鲁；本站另将部分形态、联动与特殊实体单独建档，提供名称搜索、属性/工作筛选与详情查询。');
+    var heading = document.querySelector('h1.page-title');
+    var intro = heading ? heading.nextElementSibling : null;
+    if (intro && intro.tagName === 'P') {
+      intro.innerHTML = '本站当前共整理 <strong>299 个资料条目</strong>：其中 Palworld 1.0 官方公布的帕鲁总数为 <strong>287 种</strong>，另含部分形态、联动与特殊实体。可按属性、名称、稀有度和工作适性筛选，点击卡片查看详情。';
+    }
+    var jsonLd = document.querySelector('script[type="application/ld+json"]');
+    if (jsonLd) {
+      try {
+        var ld = JSON.parse(jsonLd.textContent);
+        if (ld && ld['@type'] === 'ItemList') {
+          ld.name = '幻兽帕鲁资料条目列表（287种正式版帕鲁 + 形态/特殊条目）';
+          jsonLd.textContent = JSON.stringify(ld);
+        }
+      } catch (e) {}
+    }
+  }
+
   var incomingQuery = '';
   try { incomingQuery = new URLSearchParams(location.search).get('q') || ''; } catch (e) {}
   var incomingPalSearch = document.getElementById('palSearch');
   if (incomingPalSearch && incomingQuery) {
     incomingPalSearch.value = incomingQuery;
-    // 图鉴自己的高级筛选脚本在 main.js 之后加载，因此延后一轮事件循环触发。
     setTimeout(function () {
       try { incomingPalSearch.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
     }, 0);
@@ -104,7 +120,6 @@
       });
       if (emptyMsg) emptyMsg.style.display = visible === 0 ? '' : 'none';
     }
-
     if (searchInput) searchInput.addEventListener('input', applyFilter);
     if (elemSelect) {
       elemSelect.addEventListener('change', function () {
@@ -136,7 +151,6 @@
     var itemBtns = document.getElementById('itemBtns');
     var itemEmpty = document.getElementById('itemEmpty');
     var activeCat = '';
-
     function applyItemFilter() {
       var kw = (itemSearch ? itemSearch.value.trim() : '').toLowerCase();
       var total = 0;
@@ -158,7 +172,6 @@
       }
       if (itemEmpty) itemEmpty.style.display = total === 0 ? '' : 'none';
     }
-
     if (itemSearch) itemSearch.addEventListener('input', applyItemFilter);
     if (itemBtns) {
       itemBtns.addEventListener('click', function (e) {
