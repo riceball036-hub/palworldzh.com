@@ -9,7 +9,6 @@
   }
   if (!siteRoot) siteRoot = /\/(?:pals|news)\//.test(location.pathname) ? '../' : '';
 
-  // 体验增强样式独立加载，避免批量改动数百个静态详情页。
   if (!document.querySelector('link[data-palworldzh-experience]')) {
     var extraCss = document.createElement('link');
     extraCss.rel = 'stylesheet';
@@ -18,7 +17,6 @@
     document.head.appendChild(extraCss);
   }
 
-  // 键盘用户可直接跳到正文。
   var main = document.querySelector('main');
   if (main) {
     if (!main.id) main.id = 'main-content';
@@ -31,7 +29,6 @@
     }
   }
 
-  // ---------- 移动端导航折叠 ----------
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.querySelector('.main-nav');
   function closeNav() {
@@ -52,7 +49,6 @@
     });
   }
 
-  // ---------- 版本可信度：全站统一 ----------
   var toolBar = document.querySelector('.tool-bar');
   if (toolBar && !document.querySelector('.site-version-bar')) {
     var versionBar = document.createElement('div');
@@ -72,7 +68,18 @@
       '<a href="' + siteRoot + 'sitemap.xml">站点地图</a>';
   }
 
-  // ---------- 帕鲁图鉴筛选（旧版图鉴布局兼容） ----------
+  // 从全站搜索落到图鉴时保留关键词，例如 paldex.html?q=阿努比斯。
+  var incomingQuery = '';
+  try { incomingQuery = new URLSearchParams(location.search).get('q') || ''; } catch (e) {}
+  var incomingPalSearch = document.getElementById('palSearch');
+  if (incomingPalSearch && incomingQuery) {
+    incomingPalSearch.value = incomingQuery;
+    // 图鉴自己的高级筛选脚本在 main.js 之后加载，因此延后一轮事件循环触发。
+    setTimeout(function () {
+      try { incomingPalSearch.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+    }, 0);
+  }
+
   var palGrid = document.getElementById('palGrid');
   if (palGrid) {
     var searchInput = document.getElementById('palSearch');
@@ -104,9 +111,7 @@
         activeElem = elemSelect.value;
         if (btnBar) {
           var btns = btnBar.querySelectorAll('.filter-btn');
-          for (var i = 0; i < btns.length; i++) {
-            btns[i].classList.toggle('active', btns[i].getAttribute('data-elem') === activeElem);
-          }
+          for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('active', btns[i].getAttribute('data-elem') === activeElem);
         }
         applyFilter();
       });
@@ -118,16 +123,13 @@
         var v = b.getAttribute('data-elem') || '';
         activeElem = activeElem === v ? '' : v;
         var btns = btnBar.querySelectorAll('.filter-btn');
-        for (var i = 0; i < btns.length; i++) {
-          btns[i].classList.toggle('active', btns[i].getAttribute('data-elem') === activeElem);
-        }
+        for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('active', btns[i].getAttribute('data-elem') === activeElem);
         if (elemSelect) elemSelect.value = activeElem;
         applyFilter();
       });
     }
   }
 
-  // ---------- 物品图鉴筛选 ----------
   var itemGrid = document.getElementById('itemGrid');
   if (itemGrid) {
     var itemSearch = document.getElementById('itemSearch');
@@ -165,24 +167,17 @@
         var v = b.getAttribute('data-cat') || '';
         activeCat = activeCat === v ? '' : v;
         var btns = itemBtns.querySelectorAll('.filter-btn');
-        for (var i = 0; i < btns.length; i++) {
-          btns[i].classList.toggle('active', btns[i].getAttribute('data-cat') === activeCat);
-        }
+        for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('active', btns[i].getAttribute('data-cat') === activeCat);
         applyItemFilter();
       });
     }
   }
 
-  // 中文或特殊字符 hash 不再作为 CSS selector 解析，避免异常中断脚本。
   if (location.hash) {
     try {
       var id = decodeURIComponent(location.hash.slice(1));
       var target = document.getElementById(id);
-      if (target) setTimeout(function () {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 150);
-    } catch (e) {
-      // 非法 hash 不影响其余功能。
-    }
+      if (target) setTimeout(function () { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+    } catch (e) {}
   }
 })();
