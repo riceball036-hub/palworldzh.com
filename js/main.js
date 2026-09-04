@@ -11,8 +11,8 @@
       script = scripts.length ? scripts[scripts.length - 1] : null;
     }
     var href = script && script.getAttribute('src')
-      ? script.getAttribute('src').replace(/js\/main\.js(?:\?.*)?$/, 'css/ux.css?v=20260905a')
-      : 'css/ux.css?v=20260905a';
+      ? script.getAttribute('src').replace(/js\/main\.js(?:\?.*)?$/, 'css/ux.css?v=20260905b')
+      : 'css/ux.css?v=20260905b';
     var link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = href;
@@ -94,14 +94,14 @@
     try { params = new URLSearchParams(window.location.search); } catch (e) { return; }
     var q = (params.get('q') || '').trim();
     if (!q) return;
-    var ids = ['palSearch', 'itemSearch', 'skillSearch', 'passiveSearch'];
+    var ids = ['palSearch', 'itemSearch', 'skillSearch', 'psSearch', 'dropSearch'];
     ids.forEach(function (id) {
       var input = document.getElementById(id);
       if (!input) return;
       input.value = q;
       setTimeout(function () {
         input.dispatchEvent(new Event('input', { bubbles: true }));
-        input.focus({ preventScroll: true });
+        try { input.focus({ preventScroll: true }); } catch (e) { input.focus(); }
       }, 0);
     });
   }
@@ -164,11 +164,11 @@
 
   // ---------- 物品图鉴筛选 ----------
   var itemGrid = document.getElementById('itemGrid');
+  var itemBtns = document.getElementById('itemBtns');
+  var activeCat = '';
   if (itemGrid) {
     var itemSearch = document.getElementById('itemSearch');
-    var itemBtns = document.getElementById('itemBtns');
     var itemEmpty = document.getElementById('itemEmpty');
-    var activeCat = '';
 
     function applyItemFilter() {
       var kw = (itemSearch ? itemSearch.value.trim() : '').toLowerCase();
@@ -209,8 +209,12 @@
     }
   }
 
-  // ---------- 图鉴/物品页：结果数量 + 一键清除筛选 ----------
+  // ---------- 数据页：结果数量 + 一键清除筛选 ----------
+  var dropGrid = document.getElementById('dropGrid');
+  var skillTable = document.getElementById('skillTable');
+  var psGrid = document.getElementById('psGrid');
   var filterFeedback = null;
+
   function visibleCount() {
     var palSections = document.getElementById('palSections');
     if (palSections) {
@@ -228,33 +232,51 @@
       });
       return n;
     }
+    if (dropGrid) {
+      return Array.prototype.filter.call(dropGrid.querySelectorAll('.item-cat'), function (cat) {
+        return cat.style.display !== 'none';
+      }).length;
+    }
+    if (skillTable) {
+      return Array.prototype.filter.call(skillTable.querySelectorAll('tbody tr[data-name]'), function (row) {
+        return row.style.display !== 'none';
+      }).length;
+    }
+    if (psGrid) {
+      return Array.prototype.filter.call(psGrid.querySelectorAll('.catalog-card[data-name]'), function (card) {
+        return card.style.display !== 'none';
+      }).length;
+    }
     return null;
   }
+
   function updateFilterFeedback() {
     if (!filterFeedback) return;
     var count = visibleCount();
     var label = filterFeedback.querySelector('.filter-result-count');
     if (label && count !== null) label.textContent = '当前显示 ' + count + ' 条结果';
   }
+
   function setupFilterFeedback() {
     var palSections = document.getElementById('palSections');
-    var filters = (palSections || itemGrid) ? document.querySelector('.filters') : null;
+    var hasResults = palSections || itemGrid || dropGrid || skillTable || psGrid;
+    var filters = hasResults ? document.querySelector('.filters') : null;
     if (!filters || filters.parentNode.querySelector('.filter-feedback')) return;
+
     filterFeedback = document.createElement('div');
     filterFeedback.className = 'filter-feedback';
     filterFeedback.innerHTML = '<span class="filter-result-count" aria-live="polite"></span><button type="button" class="filter-reset">清除筛选</button>';
     filters.insertAdjacentElement('afterend', filterFeedback);
 
     filterFeedback.querySelector('.filter-reset').addEventListener('click', function () {
-      var ids = ['palSearch', 'itemSearch'];
-      ids.forEach(function (id) {
+      ['palSearch', 'itemSearch', 'dropSearch', 'skillSearch', 'psSearch'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) {
           el.value = '';
           el.dispatchEvent(new Event('input', { bubbles: true }));
         }
       });
-      ['elemFilter', 'rarityFilter', 'workFilter'].forEach(function (id) {
+      ['elemFilter', 'rarityFilter', 'workFilter', 'psRank'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) {
           el.value = '';
@@ -278,7 +300,7 @@
       setTimeout(updateFilterFeedback, 0);
     });
 
-    ['palSearch', 'itemSearch', 'elemFilter', 'rarityFilter', 'workFilter', 'sortBy'].forEach(function (id) {
+    ['palSearch', 'itemSearch', 'dropSearch', 'skillSearch', 'psSearch', 'elemFilter', 'rarityFilter', 'workFilter', 'sortBy', 'psRank'].forEach(function (id) {
       var el = document.getElementById(id);
       if (!el) return;
       el.addEventListener(el.tagName === 'INPUT' ? 'input' : 'change', function () {
