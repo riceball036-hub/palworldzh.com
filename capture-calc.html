@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>捕获率估算器 - 选帕鲁与球算成功率 | 幻兽帕鲁资料库</title>
+<meta name="description" content="幻兽帕鲁捕获率估算器：选择目标帕鲁、帕鲁球、血量与异常状态，实时估算捕捉成功率，附抓怪技巧。">
+<link rel="canonical" href="https://palworldzh.com/capture-calc.html">
+<link rel="icon" type="image/svg+xml" href="assets/img/site/logo.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="幻兽帕鲁资料库">
+<meta property="og:title" content="捕获率估算器 - 选帕鲁与球算成功率 | 幻兽帕鲁资料库">
+<meta property="og:description" content="幻兽帕鲁捕获率估算器：选择目标帕鲁、帕鲁球、血量与异常状态，实时估算捕捉成功率，附抓怪技巧。">
+<meta property="og:url" content="https://palworldzh.com/capture-calc.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/style.css?v=20260901a">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"幻兽帕鲁捕获率估算器","inLanguage":"zh-CN","applicationCategory":"GameApplication"}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark"><img src="assets/img/site/logo.svg" alt="幻兽帕鲁资料库" width="30" height="30"></span><span>幻兽帕鲁资料库<small>PALWORLD DATABASE</small></span></a>
+    <button class="nav-toggle" aria-label="菜单" aria-expanded="false">☰</button>
+    <nav class="main-nav" aria-label="主导航">
+<a href="index.html">首页</a>
+<a href="paldex.html" class="active">帕鲁图鉴</a>
+<a href="rampaging-pals.html">狂化帕鲁</a>
+<a href="breeding.html">配种繁殖</a>
+<a href="combat.html">战斗配队</a>
+<a href="mounts.html">坐骑推荐</a>
+<a href="workers.html">工作帕鲁</a>
+<a href="items.html">物品图鉴</a>
+<a href="tech.html">科技树</a>
+<a href="news.html">最新资讯</a>
+    </nav>
+    <button type="button" class="header-search js-open-search" aria-label="搜索（Ctrl+K）"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><line x1="13.5" y1="13.5" x2="17" y2="17" stroke="currentColor" stroke-width="2"/></svg><span>搜索</span><kbd>Ctrl K</kbd></button>
+  </div>
+</header>
+<div class="tool-bar">
+  <div class="container tool-bar-inner">
+    <span class="tool-bar-label">工具</span>
+    <nav class="tool-nav" aria-label="工具导航">
+<a href="breed-calc.html">繁殖计算器</a>
+<a href="capture-calc.html">捕获率估算</a>
+<a href="skills.html">技能大全</a>
+<a href="passive-skills.html">被动技能</a>
+<a href="drops.html">掉落物反查</a>
+<a href="bosses.html">Boss与传说</a>
+<a href="world.html">世界探索</a>
+<a href="map.html">游戏地图</a>
+<a href="treemap.html">科技树图</a>
+    </nav>
+  </div>
+</div>
+<main><section class="section"><div class="container"><h1 class="page-title">捕获率估算器</h1><p>扔球之前先算一算：选帕鲁、选球、填血量状态，马上给出成功率估算。数值基于游戏捕获系数与常见倍率估算，实际结果会受等级差、帕鲁球品质等影响，扔球前心里有个数。</p>
+
+<div class="card">
+  <h3>参数设置</h3>
+  <div class="calc-controls">
+    <div class="calc-field">
+      <label>目标帕鲁</label>
+      <select id="capPal"></select>
+    </div>
+    <div class="calc-field">
+      <label>使用的球</label>
+      <select id="capBall">
+        <option value="1">基础帕鲁球 ×1.0</option>
+        <option value="1.3">超级帕鲁球 ×1.3</option>
+        <option value="1.6">高级帕鲁球 ×1.6</option>
+        <option value="2">巨型号帕鲁球 ×2.0</option>
+        <option value="2.5" selected>传说帕鲁球 ×2.5</option>
+        <option value="3">大师帕鲁球 ×3.0</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>剩余血量</label>
+      <select id="capHp">
+        <option value="0.4">满血 ×0.4</option>
+        <option value="0.6" selected>半血左右 ×0.6</option>
+        <option value="0.8">残血 ×0.8</option>
+        <option value="1">濒死 ×1.0</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>异常状态</label>
+      <select id="capStatus">
+        <option value="1" selected>无 ×1.0</option>
+        <option value="1.1">燃烧/中毒 ×1.1</option>
+        <option value="1.15">冰冻/麻痹 ×1.15</option>
+        <option value="1.25">睡眠 ×1.25</option>
+      </select>
+    </div>
+    <div class="calc-field">
+      <label>后方投掷</label>
+      <select id="capBack">
+        <option value="1" selected>否 ×1.0</option>
+        <option value="1.5">是 ×1.5</option>
+      </select>
+    </div>
+  </div>
+  <div id="capResult" class="calc-result"></div>
+</div>
+
+<div class="note note-green"><b>抓怪小贴士：</b>血量越低、状态越多、球越好，成功率越高。帕鲁的捕获系数是基础——系数越低越难抓（比如传说级帕鲁）。等级差距过大会大幅降低成功率，建议同级或高等级再抓。</div></div></section></main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>幻兽帕鲁资料库 · 玩家自制 Palworld 中文资料站 · 数据整理自游戏内容，仅供学习交流</p>
+    <p class="footer-ver">数据版本：Palworld 1.0（正式版） · 最后更新：2026-09-01 · <a href="about.html">关于本站</a> · <a href="sitemap.xml">站点地图</a></p>
+  </div>
+</footer>
+<script src="js/main.js?v=20260901a"></script>
+<script src="js/search.js?v=20260901a"></script>
+
+<script>
+(function(){
+  var PALS = [{"id": "Alpaca", "no": "020", "name": "美露帕", "capture": 1.0}, {"id": "AmaterasuWolf", "no": "111", "name": "苍焰狼", "capture": 1.0}, {"id": "AmaterasuWolf_Dark", "no": "111B", "name": "幽焰狼", "capture": 1.0}, {"id": "Anubis", "no": "139", "name": "阿努比斯", "capture": 1.0}, {"id": "BadCatgirl", "no": "143", "name": "妮瞅莎", "capture": 1.0}, {"id": "Baphomet", "no": "091", "name": "炎魔羊", "capture": 1.0}, {"id": "Baphomet_Dark", "no": "091B", "name": "暗魔羊", "capture": 1.0}, {"id": "Bastet", "no": "027", "name": "喵丝特", "capture": 1.0}, {"id": "Bastet_Ice", "no": "027B", "name": "冰丝特", "capture": 1.0}, {"id": "BerryGoat", "no": "034", "name": "灌木羊", "capture": 1.0}, {"id": "BerryGoat_Dark", "no": "034B", "name": "郁木羊", "capture": 1.0}, {"id": "BirdDragon", "no": "064", "name": "烽歌龙", "capture": 1.0}, {"id": "BirdDragon_Ice", "no": "064B", "name": "霜歌龙", "capture": 1.0}, {"id": "BlackCentaur", "no": "199", "name": "混沌骑士", "capture": 1.0}, {"id": "BlackGriffon", "no": "189", "name": "异构格里芬", "capture": 1.0}, {"id": "BlackMetalDragon", "no": "158", "name": "魔渊龙", "capture": 1.0}, {"id": "BlackPuppy", "no": "149", "name": "墨丸", "capture": 1.0}, {"id": "BlackPuppy_Ice", "no": "149B", "name": "冬丸", "capture": 1.0}, {"id": "BlueDragon", "no": "041", "name": "碧海龙", "capture": 1.0}, {"id": "BlueDragon_Ice", "no": "041B", "name": "碧月龙", "capture": 1.0}, {"id": "BluePlatypus", "no": "005", "name": "冲浪鸭", "capture": 1.1}, {"id": "BluePlatypus_Fire", "no": "005B", "name": "热浪鸭", "capture": 1.1}, {"id": "BlueSkyDragon", "no": "192", "name": "霄龙", "capture": 1.0}, {"id": "BlueThunderHorse", "no": "161", "name": "驭雷马", "capture": 1.0}, {"id": "BlueberryFairy", "no": "147", "name": "梅莉姆", "capture": 1.0}, {"id": "Boar", "no": "028", "name": "草莽猪", "capture": 1.0}, {"id": "BrownRabbit", "no": "165", "name": "詹兔曼", "capture": 1.0}, {"id": "CactusDoll", "no": "100", "name": "球抱苞", "capture": 1.0}, {"id": "CactusDoll_Dark", "no": "100B", "name": "妖抱苞", "capture": 1.0}, {"id": "CandleGhost", "no": "135", "name": "恐炬灵", "capture": 1.0}, {"id": "CaptainPenguin", "no": "018", "name": "企丸王", "capture": 1.0}, {"id": "CaptainPenguin_Black", "no": "018B", "name": "闪丸王", "capture": 1.0}, {"id": "Carbunclo", "no": "004", "name": "翠叶鼠", "capture": 0.9}, {"id": "CatBat", "no": "052", "name": "猫蝠怪", "capture": 1.0}, {"id": "CatMage", "no": "079", "name": "暗巫猫", "capture": 1.0}, {"id": "CatMage_Fire", "no": "079B", "name": "炽巫猫", "capture": 1.0}, {"id": "CatVampire", "no": "065", "name": "夜幕魔蝠", "capture": 1.0}, {"id": "ChickenPal", "no": "003", "name": "皮皮鸡", "capture": 1.5}, {"id": "ClioneTwins", "no": "047", "name": "莉欧·莉涅", "capture": 1.0}, {"id": "CloverFairy", "no": "014", "name": "幸叶茸", "capture": 1.0}, {"id": "ClownRabbit", "no": "176", "name": "拉比耶尔", "capture": 1.0}, {"id": "ColorfulBird", "no": "053", "name": "炸蛋鸟", "capture": 1.0}, {"id": "CowPal", "no": "040", "name": "波霸牛", "capture": 1.0}, {"id": "CubeTurtle", "no": "142", "name": "重岩龟", "capture": 1.0}, {"id": "CubeTurtle_Neutral", "no": "142B", "name": "净岩龟", "capture": 1.0}, {"id": "CuteButterfly", "no": "061", "name": "幻悦蝶", "capture": 1.0}, {"id": "CuteFox", "no": "006", "name": "玉藻狐", "capture": 1.3}, {"id": "CuteMole", "no": "031", "name": "遁地鼠", "capture": 1.0}, {"id": "DandelionGirl", "no": "164", "name": "蒲蒲飞芽", "capture": 1.0}, {"id": "DarkAlien", "no": "145", "name": "杰诺贝达", "capture": 1.0}, {"id": "DarkCrow", "no": "057", "name": "黑鸦隐士", "capture": 1.0}, {"id": "DarkFlameFox", "no": "115", "name": "紫狐娇", "capture": 1.0}, {"id": "DarkMechaDragon", "no": "196", "name": "杰诺多兰", "capture": 1.0}, {"id": "DarkScorpion", "no": "099", "name": "冥铠蝎", "capture": 1.0}, {"id": "DarkScorpion_Ground", "no": "099B", "name": "金铠蝎", "capture": 1.0}, {"id": "Deer", "no": "032", "name": "紫霞鹿", "capture": 1.0}, {"id": "Deer_Ground", "no": "032B", "name": "祇岳鹿", "capture": 1.0}, {"id": "DomeArmorDragon", "no": "184", "name": "磐甲龙", "capture": 1.0}, {"id": "DreamDemon", "no": "022", "name": "寐魔", "capture": 1.0}, {"id": "DrillGame", "no": "107", "name": "碎岩龟", "capture": 1.0}, {"id": "Eagle", "no": "049", "name": "天擒鸟", "capture": 1.0}, {"id": "ElecCat", "no": "042", "name": "伏特喵", "capture": 1.1}, {"id": "ElecLizard", "no": "167", "name": "电懒懒", "capture": 1.0}, {"id": "ElecPanda", "no": "185", "name": "暴电熊", "capture": 1.0}, {"id": "ElecPomeranian", "no": "062", "name": "电汪汪", "capture": 1.0}, {"id": "ElecSnail", "no": "163", "name": "电涡蜗", "capture": 1.0}, {"id": "ElecSnail_Ground", "no": "163B", "name": "金涡蜗", "capture": 1.0}, {"id": "FairyDragon", "no": "063", "name": "精灵龙", "capture": 1.0}, {"id": "FairyDragon_Water", "no": "063B", "name": "水灵龙", "capture": 1.0}, {"id": "FeatherOstrich", "no": "123", "name": "战冠雀", "capture": 1.0}, {"id": "FengyunDeeper", "no": "083", "name": "云海鹿", "capture": 1.0}, {"id": "FengyunDeeper_Electric", "no": "083B", "name": "雷隐鹿", "capture": 1.0}, {"id": "FireKirin", "no": "093", "name": "火麒麟", "capture": 1.0}, {"id": "FireKirin_Dark", "no": "093B", "name": "邪麒麟", "capture": 1.0}, {"id": "FlameBambi", "no": "026", "name": "燎火鹿", "capture": 1.1}, {"id": "FlameBuffalo", "no": "058", "name": "炽焰牛", "capture": 1.0}, {"id": "FlowerDinosaur", "no": "084", "name": "花冠龙", "capture": 1.0}, {"id": "FlowerDinosaur_Electric", "no": "084B", "name": "雷冠龙", "capture": 1.0}, {"id": "FlowerDoll", "no": "089", "name": "花丽娜", "capture": 1.0}, {"id": "FlowerDoll_Fire", "no": "089B", "name": "樱丽娜", "capture": 1.0}, {"id": "FlowerPrince", "no": "194", "name": "夜蔓爵", "capture": 1.0}, {"id": "FlowerRabbit", "no": "077", "name": "波娜兔", "capture": 1.0}, {"id": "FluffyBird", "no": "059", "name": "雪绵啾", "capture": 1.0}, {"id": "FlyingManta", "no": "007", "name": "鲁米儿", "capture": 1.1}, {"id": "FlyingManta_Thunder", "no": "007B", "name": "雷米儿", "capture": 1.1}, {"id": "FoxExorcist", "no": "174", "name": "昭炎狐", "capture": 1.0}, {"id": "FoxMage", "no": "078", "name": "焰巫狐", "capture": 1.0}, {"id": "FoxMage_Dark", "no": "078B", "name": "幽巫狐", "capture": 1.0}, {"id": "Ganesha", "no": "011", "name": "壶小象", "capture": 1.3}, {"id": "Garm", "no": "033", "name": "猎狼", "capture": 1.0}, {"id": "GhostAnglerfish", "no": "097", "name": "冥灯鱼", "capture": 1.0}, {"id": "GhostAnglerfish_Fire", "no": "097B", "name": "炙灯鱼", "capture": 1.0}, {"id": "GhostBeast", "no": "117", "name": "噬魂兽", "capture": 1.0}, {"id": "GhostBlackCat", "no": "050", "name": "念影喵", "capture": 1.0}, {"id": "GhostDragon", "no": "171", "name": "灵曦龙", "capture": 1.0}, {"id": "GhostDragon_Fire", "no": "171B", "name": "狱熙龙", "capture": 1.0}, {"id": "GhostRabbit", "no": "148", "name": "魅爱莉", "capture": 1.0}, {"id": "GhostRabbit_Grass", "no": "148B", "name": "碧艾莉", "capture": 1.0}, {"id": "GoldenHorse", "no": "154", "name": "金驰兽", "capture": 1.0}, {"id": "Gorilla", "no": "074", "name": "铁拳猿", "capture": 1.0}, {"id": "Gorilla_Ground", "no": "074B", "name": "石掌猿", "capture": 1.0}, {"id": "GrassGolem", "no": "138", "name": "双心岩傀", "capture": 1.0}, {"id": "GrassGolem_Dark", "no": "138B", "name": "咒心岩傀", "capture": 1.0}, {"id": "GrassMammoth", "no": "087", "name": "森猛犸", "capture": 1.0}, {"id": "GrassMammoth_Ice", "no": "087B", "name": "雪猛犸", "capture": 1.0}, {"id": "GrassMinotaur", "no": "081", "name": "密林陶洛斯", "capture": 1.0}, {"id": "GrassMinotaur_Ice", "no": "081B", "name": "冰峰陶洛斯", "capture": 1.0}, {"id": "GrassPanda", "no": "102", "name": "叶胖达", "capture": 1.0}, {"id": "GrassPanda_Electric", "no": "102B", "name": "雷胖达", "capture": 1.0}, {"id": "GrassRabbitMan", "no": "152", "name": "踏春兔", "capture": 1.0}, {"id": "GrimGirl", "no": "153", "name": "幽恋娜", "capture": 1.0}, {"id": "GuardianDog", "no": "127", "name": "八云犬", "capture": 1.0}, {"id": "HadesBird", "no": "080", "name": "雷冥鸟", "capture": 1.0}, {"id": "HadesBird_Electric", "no": "080B", "name": "雷鸣鸟", "capture": 1.0}, {"id": "HawkBird", "no": "051", "name": "疾风隼", "capture": 1.0}, {"id": "Hedgehog", "no": "015", "name": "电棘鼠", "capture": 1.2}, {"id": "Hedgehog_Ice", "no": "015B", "name": "冰刺鼠", "capture": 1.0}, {"id": "HerculesBeetle", "no": "113", "name": "铠格力斯", "capture": 1.0}, {"id": "HerculesBeetle_Ground", "no": "113B", "name": "格鲁力斯", "capture": 1.0}, {"id": "HoodGhost", "no": "166", "name": "兜兜灵", "capture": 1.0}, {"id": "Horus", "no": "188", "name": "荷鲁斯", "capture": 1.0}, {"id": "Horus_Water", "no": "188B", "name": "伊西斯", "capture": 1.0}, {"id": "IceCrocodile", "no": "086", "name": "肚肚鳄", "capture": 1.0}, {"id": "IceDeer", "no": "101", "name": "严冬鹿", "capture": 1.0}, {"id": "IceFox", "no": "095", "name": "吹雪狐", "capture": 1.0}, {"id": "IceHorse", "no": "200", "name": "唤冬兽", "capture": 1.0}, {"id": "IceHorse_Dark", "no": "200B", "name": "唤夜兽", "capture": 1.0}, {"id": "IceNarwhal", "no": "151", "name": "凉晶鲸", "capture": 1.0}, {"id": "IceNarwhal_Fire", "no": "151B", "name": "桃晶鲸", "capture": 1.0}, {"id": "IceSeal", "no": "072", "name": "香草豹冰", "capture": 1.0}, {"id": "IceSeal_Ground", "no": "072B", "name": "巧克力豹冰", "capture": 1.0}, {"id": "IceWitch", "no": "119", "name": "冰姬灵", "capture": 1.0}, {"id": "JellyfishFairy", "no": "045", "name": "海月仙", "capture": 1.0}, {"id": "JellyfishGhost", "no": "046", "name": "海月灵", "capture": 1.0}, {"id": "JetDragon", "no": "202", "name": "空涡龙", "capture": 1.0}, {"id": "KabukiMan", "no": "183", "name": "燎火舞伶", "capture": 1.0}, {"id": "Kelpie", "no": "043", "name": "水灵儿", "capture": 1.0}, {"id": "Kelpie_Fire", "no": "043B", "name": "火灵儿", "capture": 1.0}, {"id": "KendoFrog", "no": "009", "name": "武道蛙", "capture": 1.0}, {"id": "KendoFrog_Dark", "no": "009B", "name": "极道蛙", "capture": 1.0}, {"id": "KingAlpaca", "no": "021", "name": "君王美露帕", "capture": 1.0}, {"id": "KingAlpaca_Ice", "no": "021B", "name": "冰帝美露帕", "capture": 1.0}, {"id": "KingBahamut", "no": "137", "name": "焰煌", "capture": 1.0}, {"id": "KingBahamut_Dragon", "no": "137B", "name": "殁殃", "capture": 1.0}, {"id": "KingSunfish", "no": "169", "name": "曼波王", "capture": 1.0}, {"id": "KingSunfish_Thunder", "no": "169B", "name": "曼波皇", "capture": 1.0}, {"id": "KingWhale", "no": "203", "name": "奥沧鲸", "capture": 1.0}, {"id": "Kirin", "no": "054", "name": "雷角马", "capture": 0.9}, {"id": "Kirin_Ice", "no": "054B", "name": "凌角马", "capture": 0.9}, {"id": "Kitsunebi", "no": "029", "name": "火绒狐", "capture": 1.1}, {"id": "Kitsunebi_Ice", "no": "029B", "name": "雪绒狐", "capture": 1.1}, {"id": "LanternButler", "no": "180", "name": "妖焰灯", "capture": 1.0}, {"id": "LavaGirl", "no": "025", "name": "融焰娘", "capture": 1.1}, {"id": "LazyCatfish", "no": "109", "name": "趴趴鲶", "capture": 1.0}, {"id": "LazyCatfish_Gold", "no": "109B", "name": "梆梆鲶", "capture": 1.0}, {"id": "LazyDragon", "no": "094", "name": "佩克龙", "capture": 1.0}, {"id": "LazyDragon_Electric", "no": "094B", "name": "派克龙", "capture": 1.0}, {"id": "LeafMomonga", "no": "010", "name": "达鼠泥", "capture": 1.0}, {"id": "LeafPrincess", "no": "125", "name": "春彩娘", "capture": 1.0}, {"id": "LegendDeer", "no": "197", "name": "默世鹿", "capture": 1.0}, {"id": "LilyQueen", "no": "186", "name": "百合女王", "capture": 1.0}, {"id": "LilyQueen_Dark", "no": "186B", "name": "黑月女王", "capture": 1.0}, {"id": "LittleBriarRose", "no": "060", "name": "荊棘魔仙", "capture": 1.0}, {"id": "LizardMan", "no": "073", "name": "朋克蜥", "capture": 1.0}, {"id": "LizardMan_Fire", "no": "073B", "name": "热血蜥", "capture": 1.0}, {"id": "LongCat", "no": "162", "name": "喵璐璐", "capture": 1.0}, {"id": "LotusDragon", "no": "175", "name": "沁莲龙", "capture": 1.0}, {"id": "Manticore", "no": "112", "name": "狱焰王", "capture": 1.0}, {"id": "Manticore_Dark", "no": "112B", "name": "狱阎王", "capture": 1.0}, {"id": "MimicDog", "no": "144", "name": "旺财", "capture": 0.8}, {"id": "Monkey", "no": "023", "name": "新叶猿", "capture": 1.1}, {"id": "Monkey_Fire", "no": "023B", "name": "秋叶猿", "capture": 1.1}, {"id": "MonochromeQueen", "no": "182", "name": "墨罗娜", "capture": 1.0}, {"id": "MoonChild", "no": "181", "name": "缀夜星", "capture": 1.0}, {"id": "MoonQueen", "no": "190", "name": "辉月伊", "capture": 1.0}, {"id": "MopBaby", "no": "035", "name": "毛掸儿", "capture": 1.1}, {"id": "MopKing", "no": "036", "name": "毛老爹", "capture": 1.0}, {"id": "Mothman", "no": "193", "name": "暮尘蛾", "capture": 1.0}, {"id": "MummyPal", "no": "120", "name": "缚乃伊", "capture": 1.0}, {"id": "MushroomDragon", "no": "118", "name": "菇咚", "capture": 1.0}, {"id": "MushroomDragon_Dark", "no": "118B", "name": "菇波", "capture": 1.0}, {"id": "MushroomLady", "no": "179", "name": "红菇娘", "capture": 1.0}, {"id": "Mutant", "no": "082", "name": "秘斯媞雅", "capture": 1.0}, {"id": "MysteryMask", "no": "150", "name": "面惧", "capture": 1.0}, {"id": "NaughtyCat", "no": "070", "name": "笑魇猫", "capture": 1.0}, {"id": "NegativeKoala", "no": "016", "name": "瞅什魔", "capture": 1.0}, {"id": "NegativeOctopus", "no": "030", "name": "勾魂鱿", "capture": 1.0}, {"id": "NegativeOctopus_Neutral", "no": "030B", "name": "蚀魂鱿", "capture": 1.0}, {"id": "NightBlueHorse", "no": "130", "name": "夜冥驹", "capture": 1.0}, {"id": "NightBlueHorse_Neutral", "no": "130B", "name": "日耀驹", "capture": 1.0}, {"id": "NightFox", "no": "024", "name": "露娜蒂", "capture": 1.0}, {"id": "NightLady", "no": "195", "name": "贝菈诺娃", "capture": 1.0}, {"id": "NightLady_Dark", "no": "195B", "name": "贝菈露洁", "capture": 1.0}, {"id": "OctopusGirl", "no": "048", "name": "墨沫姬", "capture": 1.0}, {"id": "OctopusGirl_Neutral", "no": "048B", "name": "梦沫姬", "capture": 1.0}, {"id": "OniGhostGirl", "no": "168", "name": "吓丝妮", "capture": 1.0}, {"id": "PandaGirl", "no": "090", "name": "莉芳", "capture": 1.0}, {"id": "Penguin", "no": "017", "name": "企丸丸", "capture": 1.0}, {"id": "Penguin_Electric", "no": "017B", "name": "闪丸丸", "capture": 0.9}, {"id": "PinkCat", "no": "002", "name": "捣蛋猫", "capture": 1.5}, {"id": "PinkLizard", "no": "069", "name": "博爱蜥", "capture": 1.0}, {"id": "PinkRabbit", "no": "044", "name": "姬小兔", "capture": 1.0}, {"id": "PinkRabbit_Grass", "no": "044B", "name": "艾小兔", "capture": 1.0}, {"id": "PlantSlime", "no": "012", "name": "叶泥泥", "capture": 1.3}, {"id": "Plesiosaur", "no": "110", "name": "梁叶龙", "capture": 1.0}, {"id": "PoseidonOrca", "no": "201", "name": "海皇鲸", "capture": 1.0}, {"id": "PurpleSpider", "no": "071", "name": "桃蛛娘", "capture": 1.0}, {"id": "QueenBee", "no": "068", "name": "女皇蜂", "capture": 1.0}, {"id": "RaijinDaughter", "no": "092", "name": "雷鸣童子", "capture": 1.0}, {"id": "RaijinDaughter_Water", "no": "092B", "name": "天阴童子", "capture": 1.0}, {"id": "RedArmorBird", "no": "104", "name": "燧火鸟", "capture": 1.0}, {"id": "RedFlowerBird", "no": "173", "name": "大红呱", "capture": 1.0}, {"id": "RobinHood", "no": "076", "name": "羽箭射手", "capture": 1.0}, {"id": "RobinHood_Ground", "no": "076B", "name": "山岳射手", "capture": 1.0}, {"id": "RockBeast", "no": "131", "name": "磐峰兽", "capture": 1.0}, {"id": "RockBeast_Ice", "no": "131B", "name": "寒峰兽", "capture": 1.0}, {"id": "Ronin", "no": "085", "name": "浪刃武士", "capture": 1.0}, {"id": "Ronin_Dark", "no": "085B", "name": "鬼刃武士", "capture": 1.0}, {"id": "SaintCentaur", "no": "198", "name": "圣光骑士", "capture": 1.0}, {"id": "SakuraSaurus", "no": "108", "name": "连理龙", "capture": 1.0}, {"id": "SakuraSaurus_Water", "no": "108B", "name": "海誓龙", "capture": 1.0}, {"id": "SamuraiDog", "no": "013", "name": "宗铭丸", "capture": 1.0}, {"id": "ScorpionMan", "no": "141", "name": "蛊刺妖", "capture": 1.0}, {"id": "ScorpionMan_Electric", "no": "141B", "name": "电针妖", "capture": 1.0}, {"id": "Sekhmet", "no": "140", "name": "塞赫麦特", "capture": 1.0}, {"id": "Serpent", "no": "075", "name": "滑水蛇", "capture": 1.0}, {"id": "Serpent_Ground", "no": "075B", "name": "流沙蛇", "capture": 1.0}, {"id": "SharkKid", "no": "055", "name": "鲨小子", "capture": 1.0}, {"id": "SharkKid_Fire", "no": "055B", "name": "红小鲨", "capture": 1.0}, {"id": "SheepBall", "no": "001", "name": "棉悠悠", "capture": 1.5}, {"id": "SifuDog", "no": "155", "name": "汪宗师", "capture": 1.0}, {"id": "SkyDragon", "no": "124", "name": "天羽龙", "capture": 1.0}, {"id": "SkyDragon_Grass", "no": "124B", "name": "翠羽龙", "capture": 1.0}, {"id": "SleeveRabbit", "no": "170", "name": "兔绣袖", "capture": 1.0}, {"id": "SmallArmadillo", "no": "126", "name": "球犰", "capture": 1.0}, {"id": "SmallYeti", "no": "133", "name": "雪墩墩", "capture": 1.0}, {"id": "SnakeGirl", "no": "178", "name": "梅杜娜", "capture": 1.0}, {"id": "SnowPeafowl", "no": "114", "name": "白真雪雀", "capture": 1.0}, {"id": "SnowTigerBeastman", "no": "191", "name": "霜牙王", "capture": 1.0}, {"id": "SoldierBee", "no": "067", "name": "骑士蜂", "capture": 1.0}, {"id": "StuffedShark", "no": "088", "name": "布偶鲨", "capture": 1.0}, {"id": "StuffedShark_Fire", "no": "088B", "name": "粉粉布偶鲨", "capture": 1.0}, {"id": "SumoDog", "no": "156", "name": "力士獒", "capture": 1.0}, {"id": "Suzaku", "no": "122", "name": "朱雀", "capture": 1.0}, {"id": "Suzaku_Water", "no": "122B", "name": "清雀", "capture": 1.0}, {"id": "SweetsSheep", "no": "039", "name": "棉花糖", "capture": 1.0}, {"id": "SweetsSheep_Ground", "no": "039B", "name": "可可棉花糖", "capture": 1.0}, {"id": "SwordCutlassfish", "no": "128", "name": "鞘刀鱼", "capture": 1.0}, {"id": "SwordCutlassfish_Fire", "no": "128B", "name": "炼刃鱼", "capture": 1.0}, {"id": "TentacleTurtle", "no": "037", "name": "盔盔仔", "capture": 1.0}, {"id": "TentacleTurtle_Ground", "no": "037B", "name": "金盔仔", "capture": 1.0}, {"id": "ThiefBird", "no": "177", "name": "盗影鸦", "capture": 1.0}, {"id": "ThunderBird", "no": "096", "name": "迅雷鸟", "capture": 1.0}, {"id": "ThunderBird_Ice", "no": "096B", "name": "疾霜鸟", "capture": 1.0}, {"id": "ThunderDog", "no": "098", "name": "霹雳犬", "capture": 1.0}, {"id": "ThunderDog_Ice", "no": "098B", "name": "凛光犬", "capture": 1.0}, {"id": "ThunderDragonMan", "no": "187", "name": "波鲁杰克斯", "capture": 1.0}, {"id": "ThunderFluffyBird", "no": "172", "name": "雷云鹫", "capture": 1.0}, {"id": "TropicalOstrich", "no": "106", "name": "咕咕桑葩", "capture": 1.0}, {"id": "Umihebi", "no": "121", "name": "覆海龙", "capture": 1.0}, {"id": "Umihebi_Fire", "no": "121B", "name": "腾炎龙", "capture": 1.0}, {"id": "VenusFlytrap", "no": "136", "name": "颚莉丝", "capture": 1.0}, {"id": "VioletFairy", "no": "066", "name": "薇莉塔", "capture": 1.0}, {"id": "VolcanicMonster", "no": "129", "name": "熔岩兽", "capture": 1.0}, {"id": "VolcanicMonster_Ice", "no": "129B", "name": "寒霜兽", "capture": 1.0}, {"id": "VolcanoDragon", "no": "105", "name": "流焰龙", "capture": 1.0}, {"id": "VolcanoDragon_Ice", "no": "105B", "name": "川霜龙", "capture": 1.0}, {"id": "WeaselDragon", "no": "103", "name": "疾旋鼬", "capture": 1.0}, {"id": "WeaselDragon_Fire", "no": "103B", "name": "桃旋鼬", "capture": 1.0}, {"id": "Werewolf", "no": "056", "name": "月镰魔", "capture": 1.0}, {"id": "Werewolf_Ice", "no": "056B", "name": "霜镰魔", "capture": 1.0}, {"id": "WhiteAlienDragon", "no": "146", "name": "杰诺路达", "capture": 1.0}, {"id": "WhiteDeer", "no": "157", "name": "净世鹿", "capture": 1.0}, {"id": "WhiteDeer_Dark", "no": "157B", "name": "织夜鹿", "capture": 1.0}, {"id": "WhiteMoth", "no": "116", "name": "绸笠蛾", "capture": 1.0}, {"id": "WhiteMoth_Neutral", "no": "116B", "name": "绢笠蛾", "capture": 1.0}, {"id": "WhiteShieldDragon", "no": "160", "name": "艾基鲁迦", "capture": 1.0}, {"id": "WhiteTiger", "no": "132", "name": "冰棘兽", "capture": 1.0}, {"id": "WhiteTiger_Ground", "no": "132B", "name": "金棘兽", "capture": 1.0}, {"id": "WindChimes", "no": "038", "name": "吊缚灵", "capture": 1.0}, {"id": "WindChimes_Ice", "no": "038B", "name": "冰缚灵", "capture": 1.0}, {"id": "WingGolem", "no": "159", "name": "泰锋", "capture": 1.0}, {"id": "WingGolem_Fire", "no": "159B", "name": "丹烽", "capture": 1.0}, {"id": "WizardOwl", "no": "019", "name": "啼卡尔", "capture": 1.0}, {"id": "WoolFox", "no": "008", "name": "米露菲", "capture": 1.3}, {"id": "WorldTreeDragon", "no": "204", "name": "枯星龙", "capture": 1.0}, {"id": "YakushimaBoss001", "no": "", "name": "克苏鲁之眼", "capture": 1.0}, {"id": "YakushimaBoss001_Small", "no": "", "name": "恶魔眼", "capture": 1.0}, {"id": "YakushimaMonster001", "no": "", "name": "绿史莱姆", "capture": 1.0}, {"id": "YakushimaMonster001_Blue", "no": "", "name": "蓝史莱姆", "capture": 1.0}, {"id": "YakushimaMonster001_Pink", "no": "", "name": "夜明史莱姆", "capture": 1.0}, {"id": "YakushimaMonster001_Purple", "no": "", "name": "紫史莱姆", "capture": 1.0}, {"id": "YakushimaMonster001_Rainbow", "no": "", "name": "彩虹史莱姆", "capture": 1.0}, {"id": "YakushimaMonster001_Red", "no": "", "name": "红史莱姆", "capture": 1.0}, {"id": "YakushimaMonster002", "no": "", "name": "附魔剑", "capture": 1.0}, {"id": "YakushimaMonster003", "no": "", "name": "洞穴蝙蝠", "capture": 1.0}, {"id": "YakushimaMonster003_Purple", "no": "", "name": "夜明蝙蝠", "capture": 1.0}, {"id": "Yeti", "no": "134", "name": "白绒雪怪", "capture": 1.0}, {"id": "Yeti_Grass", "no": "134B", "name": "绿苔绒怪", "capture": 1.0}];
+  var selPal = document.getElementById('capPal');
+  var selBall = document.getElementById('capBall');
+  var selHp = document.getElementById('capHp');
+  var selStatus = document.getElementById('capStatus');
+  var selBack = document.getElementById('capBack');
+  var result = document.getElementById('capResult');
+
+  var opts = ['<option value="">-- 选择帕鲁 --</option>'];
+  PALS.forEach(function(p){
+    opts.push('<option value="' + p.id + '">' + p.no + ' ' + p.name + '（系数 ' + p.capture + '）</option>');
+  });
+  selPal.innerHTML = opts.join('');
+
+  function calc(){
+    var p = PALS.find(function(x){ return x.id === selPal.value; });
+    if (!p) { result.innerHTML = '<span class="calc-hint">请选择目标帕鲁。</span>'; return; }
+    var base = p.capture;
+    var ball = parseFloat(selBall.value);
+    var hp = parseFloat(selHp.value);
+    var st = parseFloat(selStatus.value);
+    var back = parseFloat(selBack.value);
+    // 简化估算：成功率 = 捕获系数 × 各倍率，再按难度曲线压缩
+    var raw = base * ball * hp * st * back;
+    var pct = Math.min(100, Math.round(raw * 33));
+    var level = pct >= 80 ? '基本稳了' : pct >= 50 ? '成功率不错' : pct >= 25 ? '可以一试' : '容易翻车';
+    var color = pct >= 80 ? 'var(--brand-deep)' : pct >= 50 ? 'var(--brand)' : pct >= 25 ? 'var(--bronze)' : 'var(--danger)';
+    result.innerHTML = '<p>对 <b>' + p.name + '</b> 用当前配置，估算成功率约 <b style="font-size:24px;color:' + color + '">' + pct + '%</b>（' + level + '）</p>' +
+      '<p class="calc-muted">基础系数 ' + base + ' × 球 ' + ball + ' × 血量 ' + hp + ' × 状态 ' + st + ' × 背击 ' + back + '。等级差过大时实际会明显更低。</p>';
+  }
+  [selPal, selBall, selHp, selStatus, selBack].forEach(function(el){
+    el.addEventListener('change', calc);
+  });
+})();
+</script>
+</body>
+</html>

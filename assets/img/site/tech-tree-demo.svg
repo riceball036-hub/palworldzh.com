@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2f36"/><stop offset="1" stop-color="#1a1e24"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0a23c"/><stop offset="1" stop-color="#f0850c"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="420" rx="14" fill="url(#bg)"/>
+  <!-- 标题 -->
+  <text x="30" y="42" fill="#fff" font-size="21" font-weight="bold">帕鲁科技台</text>
+  <text x="30" y="62" fill="rgba(255,255,255,.5)" font-size="11" letter-spacing="3">TECHNOLOGY TREE · 科技树</text>
+  <!-- 等级轨道 -->
+  <g font-size="11" fill="rgba(255,255,255,.6)">
+    <text x="36" y="102" text-anchor="middle">1</text><text x="36" y="142" text-anchor="middle">5</text>
+    <text x="36" y="182" text-anchor="middle">10</text><text x="36" y="222" text-anchor="middle">15</text>
+    <text x="36" y="262" text-anchor="middle">20</text><text x="36" y="302" text-anchor="middle">30</text>
+    <text x="36" y="342" text-anchor="middle">40</text><text x="36" y="382" text-anchor="middle">50</text>
+  </g>
+  <line x1="50" y1="88" x2="50" y2="396" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+  <circle cx="50" cy="92" r="5" fill="#f0850c"/><circle cx="50" cy="132" r="5" fill="rgba(255,255,255,.35)"/>
+  <circle cx="50" cy="172" r="5" fill="#f0850c"/><circle cx="50" cy="212" r="5" fill="rgba(255,255,255,.35)"/>
+  <circle cx="50" cy="252" r="5" fill="rgba(255,255,255,.35)"/><circle cx="50" cy="292" r="5" fill="#f0850c"/>
+  <circle cx="50" cy="332" r="5" fill="rgba(255,255,255,.35)"/><circle cx="50" cy="372" r="5" fill="#f0850c"/>
+  <!-- 连线（科技链） -->
+  <g stroke="rgba(240,133,12,.7)" stroke-width="1.5" fill="none">
+    <path d="M150 105 C 200 105, 220 115, 270 115"/>
+    <path d="M270 115 C 320 115, 340 125, 390 125"/>
+    <path d="M150 235 C 200 235, 220 245, 270 245"/>
+    <path d="M270 245 C 320 245, 340 255, 390 255"/>
+  </g>
+  <!-- 科技节点卡片 -->
+  <g>
+    <g transform="translate(120,85)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#e8634a"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🥚</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">帕鲁球</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 1 · ⚡1</text>
+    </g>
+    <g transform="translate(250,95)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#6c5ce7"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🛠️</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">作业台</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 1 · ⚡1</text>
+    </g>
+    <g transform="translate(380,105)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#3d8b5f"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🏗️</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">木箱</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 1 · ⚡1</text>
+    </g>
+    <g transform="translate(520,95)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#00b894"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🔥</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">篝火</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 1 · ⚡1</text>
+    </g>
+    <g transform="translate(120,215)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#4a69bd"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🪖</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">护甲</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 5 · ⚡2</text>
+    </g>
+    <g transform="translate(250,225)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#c0392b"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">⚔️</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">武器</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 5 · ⚡2</text>
+    </g>
+    <g transform="translate(380,235)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#8d6e63"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🏭</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">粉碎机</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 7 · ⚡2</text>
+    </g>
+    <g transform="translate(520,225)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#e17055"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🍖</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">烹饪</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 5 · ⚡2</text>
+    </g>
+    <g transform="translate(120,345)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="url(#accent)" stroke-width="2"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#e8634a"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🥚</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">高级帕鲁球</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 30 · ⚡4</text>
+    </g>
+    <g transform="translate(250,355)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#7f5539"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🛠️</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">优质作业台</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 34 · ⚡4</text>
+    </g>
+    <g transform="translate(380,365)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#6c5ce7"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">🧬</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">配种农场</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">Lv 40 · ⚡5</text>
+    </g>
+    <g transform="translate(520,355)">
+      <rect width="120" height="52" rx="8" fill="#333a44" stroke="rgba(255,255,255,.12)"/>
+      <rect x="8" y="8" width="36" height="36" rx="8" fill="#e84393"/>
+      <text x="26" y="33" text-anchor="middle" font-size="18">👑</text>
+      <text x="52" y="27" fill="#fff" font-size="12" font-weight="bold">Boss科技</text>
+      <text x="52" y="43" fill="rgba(255,255,255,.55)" font-size="10">图纸解锁</text>
+    </g>
+  </g>
+  <!-- 底部说明 -->
+  <text x="700" y="105" fill="rgba(255,255,255,.4)" font-size="10">▲ 等级轨道：点击跳转到对应等级</text>
+  <text x="700" y="122" fill="rgba(255,255,255,.4)" font-size="10">▶ 科技节点：图标=解锁物品种类</text>
+  <text x="700" y="139" fill="rgba(255,255,255,.4)" font-size="10">⚡ 科技点：点亮消耗</text>
+</svg>
