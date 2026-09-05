@@ -7,13 +7,17 @@
   if (scriptEl && scriptEl.src) siteRoot = scriptEl.src.replace(/js\/main\.js(?:\?.*)?$/, '');
   if (!siteRoot) siteRoot = /\/(?:pals|news)\//.test(location.pathname) ? '../' : '';
 
-  if (!document.querySelector('link[data-palworldzh-experience]')) {
-    var extraCss = document.createElement('link');
-    extraCss.rel = 'stylesheet';
-    extraCss.href = siteRoot + 'css/experience.css?v=20260905a';
-    extraCss.setAttribute('data-palworldzh-experience', '1');
-    document.head.appendChild(extraCss);
+  function loadStylesheet(attr, href) {
+    if (document.querySelector('link[' + attr + ']')) return;
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.setAttribute(attr, '1');
+    document.head.appendChild(link);
   }
+
+  loadStylesheet('data-palworldzh-experience', siteRoot + 'css/experience.css?v=20260905a');
+  loadStylesheet('data-ux-styles', siteRoot + 'css/ux.css?v=20260905b');
 
   var main = document.querySelector('main');
   if (main) {
@@ -27,22 +31,74 @@
     }
   }
 
+  function fileName(url) {
+    try {
+      var p = new URL(url, window.location.href).pathname;
+      return decodeURIComponent(p.split('/').pop() || 'index.html');
+    } catch (e) {
+      return '';
+    }
+  }
+
+  var currentFile = fileName(window.location.href);
+  var toolLinks = Array.prototype.slice.call(document.querySelectorAll('.tool-nav a'));
+  var mainLinks = Array.prototype.slice.call(document.querySelectorAll('.main-nav a'));
+  var matchedTool = false;
+  var matchedMain = false;
+
+  toolLinks.forEach(function (a) {
+    var matched = fileName(a.href) === currentFile;
+    a.classList.toggle('active', matched);
+    if (matched) matchedTool = true;
+  });
+
+  mainLinks.forEach(function (a) {
+    var matched = fileName(a.href) === currentFile;
+    if (matched) {
+      mainLinks.forEach(function (x) { x.classList.remove('active'); });
+      a.classList.add('active');
+      matchedMain = true;
+    }
+  });
+
+  if (matchedTool && !matchedMain) {
+    mainLinks.forEach(function (a) { a.classList.remove('active'); });
+  }
+
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.querySelector('.main-nav');
   function closeNav() {
     if (!toggle || !nav) return;
     nav.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+  }
+  function openNav() {
+    if (!toggle || !nav) return;
+    nav.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('nav-open');
   }
   if (toggle && nav) {
+    if (!nav.id) nav.id = 'mainNav';
+    toggle.setAttribute('aria-controls', nav.id);
     toggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (nav.classList.contains('open')) closeNav(); else openNav();
     });
     nav.addEventListener('click', function (e) {
       if (e.target.closest && e.target.closest('a')) closeNav();
     });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
+    document.addEventListener('click', function (e) {
+      if (!nav.classList.contains('open')) return;
+      var header = document.querySelector('.site-header');
+      if (header && !header.contains(e.target)) closeNav();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        closeNav();
+        try { toggle.focus(); } catch (err) {}
+      }
+    });
   }
 
   var toolBar = document.querySelector('.tool-bar');
@@ -64,7 +120,6 @@
       '<a href="' + siteRoot + 'sitemap.xml">站点地图</a>';
   }
 
-  // 修正旧生成页把“299 个站内条目”误写成“299 种官方帕鲁”的口径。
   if (/\/paldex\.html$/.test(location.pathname)) {
     document.title = '帕鲁图鉴 - 正式版287种帕鲁与形态/特殊条目 | PalworldZH';
     var desc = document.querySelector('meta[name="description"]');
@@ -86,15 +141,21 @@
     }
   }
 
-  var incomingQuery = '';
-  try { incomingQuery = new URLSearchParams(location.search).get('q') || ''; } catch (e) {}
-  var incomingPalSearch = document.getElementById('palSearch');
-  if (incomingPalSearch && incomingQuery) {
-    incomingPalSearch.value = incomingQuery;
-    setTimeout(function () {
-      try { incomingPalSearch.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
-    }, 0);
+  function applyQueryParam() {
+    var q = '';
+    try { q = new URLSearchParams(location.search).get('q') || ''; } catch (e) {}
+    q = q.trim();
+    if (!q) return;
+    ['palSearch', 'itemSearch', 'dropSearch', 'skillSearch', 'psSearch'].forEach(function (id) {
+      var input = document.getElementById(id);
+      if (!input) return;
+      input.value = q;
+      setTimeout(function () {
+        try { input.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+      }, 0);
+    });
   }
+  applyQueryParam();
 
   var palGrid = document.getElementById('palGrid');
   if (palGrid) {
@@ -119,6 +180,7 @@
         if (show) visible++;
       });
       if (emptyMsg) emptyMsg.style.display = visible === 0 ? '' : 'none';
+      updateFilterFeedback();
     }
     if (searchInput) searchInput.addEventListener('input', applyFilter);
     if (elemSelect) {
@@ -146,11 +208,11 @@
   }
 
   var itemGrid = document.getElementById('itemGrid');
+  var itemBtns = document.getElementById('itemBtns');
+  var activeCat = '';
   if (itemGrid) {
     var itemSearch = document.getElementById('itemSearch');
-    var itemBtns = document.getElementById('itemBtns');
     var itemEmpty = document.getElementById('itemEmpty');
-    var activeCat = '';
     function applyItemFilter() {
       var kw = (itemSearch ? itemSearch.value.trim() : '').toLowerCase();
       var total = 0;
@@ -171,6 +233,7 @@
         if (show) total += showRows;
       }
       if (itemEmpty) itemEmpty.style.display = total === 0 ? '' : 'none';
+      updateFilterFeedback();
     }
     if (itemSearch) itemSearch.addEventListener('input', applyItemFilter);
     if (itemBtns) {
@@ -184,6 +247,145 @@
         applyItemFilter();
       });
     }
+  }
+
+  var dropGrid = document.getElementById('dropGrid');
+  var skillTable = document.getElementById('skillTable');
+  var psGrid = document.getElementById('psGrid');
+  var filterFeedback = null;
+
+  function visibleCount() {
+    var palSections = document.getElementById('palSections');
+    if (palSections) {
+      return Array.prototype.filter.call(palSections.querySelectorAll('.pal-card'), function (c) {
+        return c.style.display !== 'none';
+      }).length;
+    }
+    if (palGrid) {
+      return Array.prototype.filter.call(palGrid.querySelectorAll('.pal-card'), function (c) {
+        return c.style.display !== 'none';
+      }).length;
+    }
+    if (itemGrid) {
+      var n = 0;
+      Array.prototype.forEach.call(itemGrid.querySelectorAll('.item-cat'), function (cat) {
+        if (cat.style.display === 'none') return;
+        Array.prototype.forEach.call(cat.querySelectorAll('tr[data-name]'), function (row) {
+          if (row.style.display !== 'none') n++;
+        });
+      });
+      return n;
+    }
+    if (dropGrid) {
+      return Array.prototype.filter.call(dropGrid.querySelectorAll('.item-cat'), function (cat) {
+        return cat.style.display !== 'none';
+      }).length;
+    }
+    if (skillTable) {
+      return Array.prototype.filter.call(skillTable.querySelectorAll('tbody tr[data-name]'), function (row) {
+        return row.style.display !== 'none';
+      }).length;
+    }
+    if (psGrid) {
+      return Array.prototype.filter.call(psGrid.querySelectorAll('.catalog-card[data-name]'), function (card) {
+        return card.style.display !== 'none';
+      }).length;
+    }
+    return null;
+  }
+
+  function updateFilterFeedback() {
+    if (!filterFeedback) return;
+    var count = visibleCount();
+    var label = filterFeedback.querySelector('.filter-result-count');
+    if (label && count !== null) label.textContent = '当前显示 ' + count + ' 条结果';
+  }
+
+  function setupFilterFeedback() {
+    var palSections = document.getElementById('palSections');
+    var hasResults = palSections || palGrid || itemGrid || dropGrid || skillTable || psGrid;
+    var filters = hasResults ? document.querySelector('.filters') : null;
+    if (!filters || filters.parentNode.querySelector('.filter-feedback')) return;
+
+    filterFeedback = document.createElement('div');
+    filterFeedback.className = 'filter-feedback';
+    filterFeedback.innerHTML = '<span class="filter-result-count" aria-live="polite"></span><button type="button" class="filter-reset">清除筛选</button>';
+    filters.insertAdjacentElement('afterend', filterFeedback);
+
+    filterFeedback.querySelector('.filter-reset').addEventListener('click', function () {
+      ['palSearch', 'itemSearch', 'dropSearch', 'skillSearch', 'psSearch'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) {
+          el.value = '';
+          try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+        }
+      });
+      ['elemFilter', 'rarityFilter', 'workFilter', 'psRank'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) {
+          el.value = '';
+          try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
+        }
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('.work-chip.on'), function (chip) {
+        chip.classList.remove('on');
+      });
+      if (itemBtns) {
+        activeCat = '';
+        Array.prototype.forEach.call(itemBtns.querySelectorAll('.filter-btn'), function (b) {
+          b.classList.toggle('active', (b.getAttribute('data-cat') || '') === '');
+        });
+        if (typeof applyItemFilter === 'function') applyItemFilter();
+      }
+      try {
+        var u = new URL(window.location.href);
+        u.searchParams.delete('q');
+        window.history.replaceState(null, '', u.pathname + (u.search ? u.search : '') + u.hash);
+      } catch (e) {}
+      setTimeout(updateFilterFeedback, 0);
+    });
+
+    ['palSearch', 'itemSearch', 'dropSearch', 'skillSearch', 'psSearch', 'elemFilter', 'rarityFilter', 'workFilter', 'sortBy', 'psRank'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener(el.tagName === 'INPUT' ? 'input' : 'change', function () {
+        setTimeout(updateFilterFeedback, 0);
+      });
+    });
+    var wp = document.getElementById('workPanel');
+    if (wp) wp.addEventListener('click', function () { setTimeout(updateFilterFeedback, 0); });
+    updateFilterFeedback();
+  }
+  setupFilterFeedback();
+
+  Array.prototype.forEach.call(document.querySelectorAll('.table-scroll'), function (box) {
+    if (!box.hasAttribute('tabindex')) box.tabIndex = 0;
+    if (!box.hasAttribute('role')) box.setAttribute('role', 'region');
+    if (!box.hasAttribute('aria-label')) box.setAttribute('aria-label', '可横向滚动的数据表格');
+  });
+
+  var elemNames = { '普通': '无', '叶子': '草', '地球': '地', '黑暗': '暗', '电': '雷' };
+  Array.prototype.forEach.call(document.querySelectorAll('.elem-badge'), function (badge) {
+    var text = badge.textContent.trim();
+    if (elemNames[text]) badge.textContent = elemNames[text];
+  });
+
+  if (!document.querySelector('.back-top')) {
+    var backTop = document.createElement('button');
+    backTop.type = 'button';
+    backTop.className = 'back-top';
+    backTop.setAttribute('aria-label', '回到顶部');
+    backTop.setAttribute('title', '回到顶部');
+    backTop.textContent = '↑';
+    document.body.appendChild(backTop);
+    function syncBackTop() {
+      backTop.classList.toggle('show', window.scrollY > 700);
+    }
+    window.addEventListener('scroll', syncBackTop, { passive: true });
+    backTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    syncBackTop();
   }
 
   if (location.hash) {
