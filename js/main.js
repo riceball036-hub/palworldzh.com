@@ -121,7 +121,6 @@
   }
 
   if (/\/paldex\.html$/.test(location.pathname)) {
-    document.title = '帕鲁图鉴 - 正式版287种帕鲁与形态/特殊条目 | PalworldZH';
     var desc = document.querySelector('meta[name="description"]');
     if (desc) desc.setAttribute('content', '幻兽帕鲁 1.0 中文图鉴：官方正式版共287种帕鲁；本站另将部分形态、联动与特殊实体单独建档，提供名称搜索、属性/工作筛选与详情查询。');
     var heading = document.querySelector('h1.page-title');
