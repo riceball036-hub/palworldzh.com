@@ -1,0 +1,84 @@
+name: Restore existing page titles
+
+on:
+  push:
+    branches:
+      - fix/restore-existing-page-titles-20260905
+    paths:
+      - .github/workflows/restore-existing-page-titles.yml
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Restore pre-audit titles only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+              'index.html': [
+                  ('<title>幻兽帕鲁 1.0 中文攻略与数据库 - 图鉴、配种、地图 | PalworldZH</title>',
+                   '<title>幻兽帕鲁资料库 - 图鉴、配种、地图与攻略 | PalworldZH</title>'),
+                  ('<meta property="og:title" content="幻兽帕鲁 1.0 中文攻略与数据库 - 图鉴、配种、地图 | PalworldZH">',
+                   '<meta property="og:title" content="幻兽帕鲁资料库 - 图鉴、配种、地图与攻略 | PalworldZH">'),
+              ],
+              'about.html': [
+                  ('<title>关于 PalworldZH - 数据来源、版本政策与非官方声明</title>',
+                   '<title>关于本站 - 幻兽帕鲁资料库资料站说明</title>'),
+                  ('<meta property="og:title" content="关于 PalworldZH - 数据来源、版本政策与非官方声明">',
+                   '<meta property="og:title" content="关于本站 - 幻兽帕鲁资料库资料站说明">'),
+              ],
+              'news.html': [
+                  ('<title>幻兽帕鲁版本动态 - v1.0.3 更新与官方消息 | PalworldZH</title>',
+                   '<title>幻兽帕鲁最新资讯 - 版本更新与官方动态 | 幻兽帕鲁资料库</title>'),
+                  ('<meta property="og:title" content="幻兽帕鲁版本动态 - v1.0.3 更新与官方消息">',
+                   '<meta property="og:title" content="幻兽帕鲁最新资讯 - 版本更新与官方动态 | 幻兽帕鲁资料库">'),
+              ],
+              'js/main.js': [
+                  ("    document.title = '帕鲁图鉴 - 正式版287种帕鲁与形态/特殊条目 | PalworldZH';\n", ''),
+              ],
+          }
+
+          for filename, pairs in replacements.items():
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              for old, new in pairs:
+                  if old in text:
+                      text = text.replace(old, new, 1)
+                  elif new and new in text:
+                      pass
+                  elif not new and old not in text:
+                      pass
+                  else:
+                      raise SystemExit(f'Expected title pattern not found in {filename}: {old}')
+              path.write_text(text, encoding='utf-8')
+          PY
+
+          echo 'Title diff:'
+          git diff -- index.html about.html news.html js/main.js
+
+      - name: Commit title restoration to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- index.html about.html news.html js/main.js; then
+            echo "Titles already restored; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html about.html news.html js/main.js
+          git commit -m "fix: restore existing page titles"
+          git push origin HEAD:main
