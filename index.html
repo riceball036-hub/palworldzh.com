@@ -25,13 +25,13 @@
     <button class="nav-toggle" aria-label="菜单" aria-expanded="false">☰</button>
     <nav class="main-nav" aria-label="主导航">
       <a href="index.html" class="active">首页</a>
-      <a href="getting-started.html">新手攻略</a>
       <a href="paldex.html">帕鲁图鉴</a>
-      <a href="breeding.html">配种繁殖</a>
-      <a href="combat.html">战斗配队</a>
-      <a href="mounts.html">坐骑推荐</a>
-      <a href="workers.html">工作帕鲁</a>
-      <a href="items.html">物品图鉴</a>
+      <a href="breed-calc.html">配种</a>
+      <a href="map.html">地图</a>
+      <a href="items.html">物品装备</a>
+      <a href="skills.html">技能</a>
+      <a href="tech.html">科技</a>
+      <a href="getting-started.html">攻略</a>
       <a href="news.html">版本动态</a>
     </nav>
     <button type="button" class="header-search js-open-search" aria-label="搜索（Ctrl+K）"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><line x1="13.5" y1="13.5" x2="17" y2="17" stroke="currentColor" stroke-width="2"/></svg><span>搜索</span><kbd>Ctrl K</kbd></button>
@@ -39,16 +39,16 @@
 </header>
 <div class="tool-bar">
   <div class="container tool-bar-inner">
-    <span class="tool-bar-label">工具</span>
+    <span class="tool-bar-label">资料与工具</span>
     <nav class="tool-nav" aria-label="工具导航">
-      <a href="breed-calc.html">繁殖计算器</a>
-      <a href="capture-calc.html">捕获率估算</a>
-      <a href="skills.html">技能大全</a>
-      <a href="passive-skills.html">被动技能</a>
-      <a href="drops.html">掉落物反查</a>
-      <a href="bosses.html">Boss与传说</a>
+      <a href="breeding.html">配种规则</a>
+      <a href="capture-calc.html">捕获率</a>
+      <a href="passive-skills.html">被动词条</a>
+      <a href="drops.html">掉落反查</a>
+      <a href="bosses.html">Boss</a>
+      <a href="workers.html">工作帕鲁</a>
+      <a href="mounts.html">坐骑</a>
       <a href="world.html">世界探索</a>
-      <a href="map.html">游戏地图</a>
       <a href="treemap.html">科技树图</a>
     </nav>
   </div>
@@ -57,28 +57,87 @@
 <section class="hero hero-compact">
   <div class="container">
     <h1>幻兽帕鲁 1.0 中文攻略与数据库 <span class="accent">PalworldZH</span></h1>
-    <p class="hero-sub">新手从开局路线开始，老玩家直接查图鉴、配种和地图。玩家自制资料站，不冒充官方；当前校订基准为 v1.0.3。</p>
+    <p class="hero-sub">从“我现在要找什么”出发，而不是从栏目名称出发。查帕鲁、算配种、找地图点位、看物品技能或解决基地与战斗问题，都可以直接进入对应资料域。</p>
     <form class="home-search" role="search" action="#" onsubmit="return false;">
       <input type="search" id="homeSearch" placeholder="搜索帕鲁、物品、技能、Boss、攻略…" aria-label="搜索帕鲁、物品、技能、Boss、攻略" autocomplete="off">
       <button type="button" class="home-search-btn js-open-search" aria-label="搜索">搜索</button>
     </form>
-    <div class="hero-version-note"><strong>正式版官方帕鲁：287 种</strong><span>·</span><span>本站另将部分形态、联动与特殊实体单独建档</span><span>·</span><a href="about.html#version-policy">为什么条目数会更多？</a></div>
+    <div class="hero-version-note"><strong>Palworld v1.0.3 数据基准</strong><span>·</span><span>官方正式版 287 种帕鲁</span><span>·</span><span>本站另收录形态、联动与特殊资料条目</span><span>·</span><a href="about.html#version-policy">数据口径</a></div>
     <div class="core-tools">
-      <span class="core-tools-label">常用入口</span>
+      <span class="core-tools-label">四个最常用入口</span>
       <div class="core-grid">
-        <a class="core-item" href="getting-started.html"><span class="ci-ico">🧭</span><span class="ci-name">新手开局路线</span><span class="ci-desc">从前 30 分钟到第一基地，尽量少剧透</span></a>
-        <a class="core-item" href="paldex.html"><span class="ci-ico">📖</span><span class="ci-name">帕鲁图鉴</span><span class="ci-desc">属性、数值、工作、技能、掉落与配种资料</span></a>
-        <a class="core-item" href="breed-calc.html"><span class="ci-ico">🥚</span><span class="ci-name">配种计算器</span><span class="ci-desc">查子代或反查目标配方；1.0 后请认准版本</span></a>
-        <a class="core-item" href="map.html"><span class="ci-ico">🗺️</span><span class="ci-name">游戏地图</span><span class="ci-desc">Boss、传送点、地下城与资源定位</span></a>
+        <a class="core-item" href="paldex.html"><span class="ci-ico">◈</span><span class="ci-name">帕鲁图鉴</span><span class="ci-desc">属性、工作适性、技能、掉落与详情集中查询</span></a>
+        <a class="core-item" href="breed-calc.html"><span class="ci-ico">◇</span><span class="ci-name">配种计算器</span><span class="ci-desc">父母查子代、目标反查组合，先看结果再读规则</span></a>
+        <a class="core-item" href="map.html"><span class="ci-ico">⌖</span><span class="ci-name">互动地图</span><span class="ci-desc">传送点、Boss、地下城与已收录探索点位分层查看</span></a>
+        <a class="core-item" href="getting-started.html"><span class="ci-ico">△</span><span class="ci-name">新手路线</span><span class="ci-desc">开局、第一基地、探索与战斗按推进顺序理解</span></a>
       </div>
     </div>
-    <div class="sub-tools">
-      <a class="sub-item" href="skills.html"><span>⚡</span>技能大全</a>
-      <a class="sub-item" href="passive-skills.html"><span>✨</span>被动技能</a>
-      <a class="sub-item" href="bosses.html"><span>👑</span>Boss与传说</a>
-      <a class="sub-item" href="workers.html"><span>🛠️</span>工作帕鲁</a>
-      <a class="sub-item" href="items.html"><span>🎒</span>物品图鉴</a>
-      <a class="sub-item" href="capture-calc.html"><span>🎯</span>捕获率估算</a>
+  </div>
+</section>
+
+<section class="section home-command-center">
+  <div class="container">
+    <div class="home-section-head">
+      <div><h2>完整资料中心</h2></div>
+      <p>把原来散落在导航、工具条和二级页面里的内容重新按游戏对象组织。先选资料域，再进入具体工具，不需要猜页面藏在哪里。</p>
+    </div>
+    <div class="hub-grid">
+      <article class="hub-card">
+        <div class="hub-kicker">PAL DATABASE</div>
+        <h3>帕鲁与培养</h3>
+        <p>从“这只帕鲁是什么”一路查到工作、坐骑、Boss 与特殊个体。</p>
+        <div class="hub-links">
+          <a href="paldex.html">完整帕鲁图鉴</a>
+          <a href="workers.html">工作适性与基地用工</a>
+          <a href="mounts.html">陆地 / 飞行 / 水上坐骑</a>
+          <a href="rampaging-pals.html">狂化帕鲁</a>
+          <a href="bosses.html">Boss 与传说目标</a>
+        </div>
+      </article>
+      <article class="hub-card">
+        <div class="hub-kicker">BREED & BUILD</div>
+        <h3>配种与养成</h3>
+        <p>把计算和规则分开：急着要答案直接算，需要规划时再看遗传与词条。</p>
+        <div class="hub-links">
+          <a href="breed-calc.html">繁殖计算器</a>
+          <a href="breeding.html">配种与遗传规则</a>
+          <a href="passive-skills.html">被动技能 / 词条</a>
+          <a href="skills.html">主动技能大全</a>
+          <a href="capture-calc.html">捕获率估算</a>
+        </div>
+      </article>
+      <article class="hub-card">
+        <div class="hub-kicker">GEAR & CRAFT</div>
+        <h3>物品、装备与科技</h3>
+        <p>材料、装备、制作和科技不再挤在一个长表里，按用途进入对应目录。</p>
+        <div class="hub-links">
+          <a href="items.html">物品总图鉴</a>
+          <a href="catalog-weapon.html">武器与装备目录</a>
+          <a href="catalog-material.html">材料目录</a>
+          <a href="catalog-production.html">生产与制作目录</a>
+          <a href="tech.html">科技解锁资料</a>
+        </div>
+      </article>
+      <article class="hub-card">
+        <div class="hub-kicker">WORLD & COMBAT</div>
+        <h3>地图、探索与战斗</h3>
+        <p>需要位置就进地图，需要路线和打法就进攻略，避免把地图页写成另一篇攻略。</p>
+        <div class="hub-links">
+          <a href="map.html">互动地图</a>
+          <a href="world.html">世界探索</a>
+          <a href="combat.html">属性克制与战斗配队</a>
+          <a href="drops.html">掉落物反查来源</a>
+          <a href="treemap.html">可视化科技树</a>
+        </div>
+      </article>
+    </div>
+    <div class="utility-ribbon" aria-label="快捷工具">
+      <a href="capture-calc.html"><strong>捕获率</strong><span>估算捕获成功率</span></a>
+      <a href="drops.html"><strong>掉落反查</strong><span>材料从哪里获取</span></a>
+      <a href="passive-skills.html"><strong>被动词条</strong><span>培养与配种参考</span></a>
+      <a href="catalog-weapon.html"><strong>武器目录</strong><span>快速查装备</span></a>
+      <a href="catalog-material.html"><strong>材料目录</strong><span>制作素材速查</span></a>
+      <a href="news.html"><strong>版本中心</strong><span>只看影响数据的更新</span></a>
     </div>
   </div>
 </section>
@@ -86,45 +145,47 @@
 <section class="section audience-section">
   <div class="container">
     <div class="audience-head">
-      <h2>你现在想做什么？</h2>
-      <p>不把所有玩家塞进同一条攻略路径：第一次玩和已经刷到后期，需要的是完全不同的答案。</p>
+      <h2>按你的进度进入</h2>
+      <p>新手需要推进顺序，后期玩家需要尽量少解释、尽快进入数据。</p>
     </div>
     <div class="audience-grid">
       <article class="audience-card beginner">
         <div class="audience-kicker">第一次玩 / 刚回坑</div>
-        <h3>先玩懂，再查细节</h3>
-        <p>先把捕捉、基地、工作分配和第一轮战斗搞明白；卡住时再点进数据库，避免一上来被几百条数据淹没。</p>
+        <h3>先建立玩法框架</h3>
+        <p>从捕捉、第一基地、工作分配、科技和基础战斗开始，卡住再进入完整数据库。</p>
         <div class="audience-links">
           <a href="getting-started.html">开局 30 分钟</a>
           <a href="workers.html">第一基地用谁</a>
           <a href="world.html">怎么探索地图</a>
-          <a href="combat.html">属性克制与战斗</a>
+          <a href="combat.html">属性与战斗</a>
         </div>
       </article>
       <article class="audience-card veteran">
         <div class="audience-kicker">资深 / 后期玩家</div>
-        <h3>少解释，直接给数据</h3>
-        <p>图鉴、配种、技能、掉落、Boss 与地图互相连起来，适合做配种链、终局队伍和基地效率规划。</p>
+        <h3>直接进入数据工具</h3>
+        <p>把图鉴、配种、被动、掉落、Boss 与地图串起来，用于终局培养、刷取和基地规划。</p>
         <div class="audience-links">
-          <a href="paldex.html">筛选与对比帕鲁</a>
-          <a href="breed-calc.html">配种计算器</a>
-          <a href="passive-skills.html">被动词条</a>
-          <a href="bosses.html">Boss 数据</a>
+          <a href="paldex.html">筛选帕鲁</a>
+          <a href="breed-calc.html">算配种</a>
+          <a href="passive-skills.html">查词条</a>
+          <a href="map.html">查位置</a>
         </div>
       </article>
     </div>
     <div class="data-trust-grid" aria-label="数据说明">
-      <div class="trust-item"><strong>287</strong><span>Palworld 1.0 官方公布的帕鲁总数；本站不会再把站内条目数等同于官方物种数。</span></div>
-      <div class="trust-item"><strong>v1.0.3</strong><span>当前校订基准。1.0 对配种、伙伴技能、科技、基地和战斗平衡有大量调整。</span></div>
-      <div class="trust-item"><strong>玩家自制</strong><span>本站与 Pocketpair / Palworld 官方无隶属或授权关系；数据有冲突时以游戏内和官方更新为准。</span></div>
+      <div class="trust-item"><strong>287</strong><span>Palworld 1.0 官方公布的帕鲁总数；站内资料条目与官方物种数分开统计。</span></div>
+      <div class="trust-item"><strong>v1.0.3</strong><span>当前校订基准；对版本敏感的数据会继续按实际可核验来源更新。</span></div>
+      <div class="trust-item"><strong>玩家自制</strong><span>与 Pocketpair / Palworld 官方无隶属关系；冲突时以游戏内和官方更新为准。</span></div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <h2>热门帕鲁速查</h2>
-    <p>常被拿来做战斗、基地或终局培养的条目。点击直接看完整数据。</p>
+    <div class="home-section-head">
+      <div><h2>热门帕鲁速查</h2></div>
+      <p>高频查询入口只保留少量代表性条目，完整筛选统一交给图鉴页。</p>
+    </div>
     <div class="pal-grid">
       <a class="pal-card" href="pals/阿努比斯.html"><img src="assets/img/pals/阿努比斯.png" alt="阿努比斯 图鉴" loading="lazy" width="72" height="72"><div class="pno">No.139</div><div class="pname">阿努比斯</div><div class="pelems"><span class="elem-badge elem-ground">地</span></div></a>
       <a class="pal-card" href="pals/空涡龙.html"><img src="assets/img/pals/空涡龙.png" alt="空涡龙 图鉴" loading="lazy" width="72" height="72"><div class="pno">No.202</div><div class="pname">空涡龙</div><div class="pelems"><span class="elem-badge elem-dragon">龙</span></div></a>
@@ -138,23 +199,25 @@
 
 <section class="section">
   <div class="container">
-    <h2>按问题找答案</h2>
+    <h2>常见任务快捷入口</h2>
     <div class="column-grid column-grid-sm">
-      <a class="column-card" href="breeding.html"><div class="cc-icon">🥚</div><h3>配种与遗传</h3><p>先理解 1.0 后的规则，再用计算器找配方。</p></a>
-      <a class="column-card" href="workers.html"><div class="cc-icon">🛠️</div><h3>基地效率</h3><p>按工作适性找帕鲁，解决缺人、堵产线和搬运问题。</p></a>
-      <a class="column-card" href="combat.html"><div class="cc-icon">⚔️</div><h3>战斗配队</h3><p>属性克制、队伍思路与高难战斗入口。</p></a>
-      <a class="column-card" href="drops.html"><div class="cc-icon">📦</div><h3>材料从哪掉</h3><p>按掉落物反查帕鲁，刷素材时少绕路。</p></a>
-      <a class="column-card" href="mounts.html"><div class="cc-icon">🐎</div><h3>坐骑怎么选</h3><p>陆地、水上、飞行坐骑按用途查看。</p></a>
-      <a class="column-card" href="news.html"><div class="cc-icon">📰</div><h3>版本改了什么</h3><p>只追踪会影响攻略和数据的官方版本变化。</p></a>
+      <a class="column-card" href="breeding.html"><div class="cc-icon">01</div><h3>理解配种与遗传</h3><p>先搞懂规则、版本影响和遗传，再进入计算器。</p></a>
+      <a class="column-card" href="workers.html"><div class="cc-icon">02</div><h3>提升基地效率</h3><p>按工作适性找帕鲁，解决缺人、产线和搬运问题。</p></a>
+      <a class="column-card" href="combat.html"><div class="cc-icon">03</div><h3>处理战斗与配队</h3><p>属性克制、队伍思路和高难战斗入口集中查看。</p></a>
+      <a class="column-card" href="drops.html"><div class="cc-icon">04</div><h3>反查材料来源</h3><p>知道要什么材料时，直接反查掉落来源，不用翻图鉴。</p></a>
+      <a class="column-card" href="mounts.html"><div class="cc-icon">05</div><h3>选择移动坐骑</h3><p>按陆地、水上和飞行用途进入坐骑资料。</p></a>
+      <a class="column-card" href="news.html"><div class="cc-icon">06</div><h3>确认版本变化</h3><p>只追踪会影响玩法结论与数据库的更新。</p></a>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <h2>关于这份资料</h2>
-    <p>《幻兽帕鲁》1.0 正式版加入大量新内容并重做许多系统。旧版文章最危险的地方不是“少一个数字”，而是仍然给出看似精确但已经过期的配种、技能、科技或平衡结论。因此本站从这次校订开始把版本基准公开显示，并区分“官方帕鲁总数”和“站内资料条目数”。</p>
-    <p>发现某页与当前游戏不一致时，请优先相信游戏内实际表现和官方补丁说明。本站的目标是让答案更好找，而不是假装所有数据永远不会过期。详细规则见 <a href="about.html#version-policy">数据来源与版本政策</a>。</p>
+    <h2>数据使用说明</h2>
+    <div class="card">
+      <p>《幻兽帕鲁》1.0 正式版对多套系统进行了调整。旧资料最容易造成的问题并不是少一个数字，而是继续给出已经失效的配种、伙伴技能、科技或平衡结论。本站因此把版本基准固定显示，并把“官方帕鲁总数”和“站内资料条目数”分开表达。</p>
+      <p>对于尚未完成逐字段复核的历史数据，不通过猜测或旧版资料强行补齐。发现某页与当前游戏不一致时，请优先相信游戏内实际表现与官方补丁说明；详细规则见 <a href="about.html#version-policy">数据来源与版本政策</a>。</p>
+    </div>
   </div>
 </section>
 </main>
